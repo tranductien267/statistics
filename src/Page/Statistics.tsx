@@ -34,7 +34,7 @@ const TimesheetPage: React.FC = () => {
   };
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch('http://localhost:5000/api/timesheet?startDate=2025-05-09&endDate=2025-05-09&page=1&limit=10');
+      const res = await fetch(process.env.REACT_APP_API_URL + '/api/timesheet?startDate=2025-05-09&endDate=2025-05-09&page=1&limit=10');
       const result = await res.json();
       const arrayResult = result.timesheets
       const arrayTimesheet : Timesheet[] = []
@@ -118,7 +118,7 @@ const TimesheetPage: React.FC = () => {
     queryParam += "startDate=" +  startTime + "&"; 
     queryParam += "endDate=" +  endTime + "&"; 
     queryParam += "page=1&limit=10"
-    const res = await fetch('http://localhost:5000/api/timesheet?' + queryParam);
+    const res = await fetch(process.env.REACT_APP_API_URL + '/api/timesheet?' + queryParam);
     const result = await res.json();
     const arrayResult = result.timesheets
     const arrayTimesheet : Timesheet[] = []
