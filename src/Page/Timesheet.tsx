@@ -99,7 +99,7 @@ function Timesheet() {
     </div>
   
     <div className="mb-5">
-      <label className="block text-lg font-medium text-gray-700 mb-2">📍 場所名</label>
+      <label className="block text-lg font-medium text-gray-700 mb-2">📍 現場名名</label>
       <input
         type="text"
         value={location}
@@ -164,7 +164,7 @@ function Timesheet() {
       <ul className="text-sm text-gray-800 space-y-2 border-b-2 border-[#ff5316] pb-4">
         <li><strong>氏名:</strong> {user?.username}</li>
         <li><strong>日付:</strong> {workDate}</li>
-        <li><strong>場所名:</strong> {location}</li>
+        <li><strong>現場名名:</strong> {location}</li>
         <li><strong>時間:</strong> {startTime}-{endTime}</li>
         <li><strong>作業内容:</strong> {task}</li>
       </ul>
