@@ -34,7 +34,10 @@ const TimesheetPage: React.FC = () => {
   };
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(process.env.REACT_APP_API_URL + '/api/timesheet?startDate=2025-05-09&endDate=2025-05-09&page=1&limit=10');
+      const today = new Date();
+      const todayStr = today.toISOString().split('T')[0];
+      const query = "startDate=" + todayStr + "&endDate="+ todayStr + "&page=1&limit=10";
+      const res = await fetch(process.env.REACT_APP_API_URL + '/api/timesheet?' + query);
       const result = await res.json();
       const arrayResult = result.timesheets
       const arrayTimesheet : Timesheet[] = []
