@@ -3,6 +3,7 @@ import Login from './Page/Login';
 import Timesheet from './Page/Timesheet';
 import AdminLogin from './Page/AdminLogin'
 import Statistics from './Page/Statistics'
+import AttendancePage from './Page/AttendancePage';
 
 function AppRouter() {
   return (
@@ -10,6 +11,7 @@ function AppRouter() {
       <Routes>
         <Route path="/admin-login" element={<AdminLogin />} />
         <Route path="/statistics" element={<Statistics />} />
+        <Route path="/attendance" element={<AttendancePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/timesheet" element={<Timesheet />} />
         <Route path="*" element={<Navigate to="/login" />} />
