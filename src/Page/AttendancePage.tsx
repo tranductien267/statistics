@@ -5,9 +5,9 @@ import MonthPicker from "../components/MonthPicker";
 import AttendanceSummary from "../components/AttendanceSummary";
 import AttendanceTable from "../components/AttendanceTable";
 import DownloadButton from "../components/DownloadButton";
-import {AttendanceEntry } from "../utils/timeUtils";
+import {AttendanceEntry,Employee } from "../utils/timeUtils";
 const AttendancePage = () => {
-  const [selectedEmployee, setSelectedEmployee] = useState<string>();
+  const [selectedEmployee, setSelectedEmployee] = useState<Employee | undefined>(undefined);
   const [selectedMonth, setSelectedMonth] = useState<number>(new Date().getMonth() + 1);
   const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear());
   const [attendanceData, setAttendanceData] = useState<AttendanceEntry[]>([]);
@@ -15,7 +15,7 @@ const AttendancePage = () => {
   return (
     <div className="flex h-screen">
       {/* Sidebar nhân viên */}
-      <Sidebar onSelectEmployee={setSelectedEmployee} selectedEmployeeId={selectedEmployee} onSidebarChange={setIsShowSider} />
+      <Sidebar onSelectEmployee={setSelectedEmployee} selectedEmployeeId={selectedEmployee?._id} onSidebarChange={setIsShowSider} />
 
       {/* Phần phải */}
       <div className="flex-1 p-4 overflow-y-auto">
@@ -29,7 +29,8 @@ const AttendancePage = () => {
           />
           <DownloadButton  
             attendanceData={attendanceData}
-            employeeId={selectedEmployee}
+            employeeId={selectedEmployee?._id}
+            employeeName={selectedEmployee?.username}
             month={selectedMonth}
             year={selectedYear}
           />
@@ -41,7 +42,7 @@ const AttendancePage = () => {
               attendanceData={attendanceData}
             />
             <AttendanceTable
-              employeeId={selectedEmployee}
+              employeeId={selectedEmployee._id}
               month={selectedMonth}
               year={selectedYear}
               onDataLoaded={setAttendanceData}

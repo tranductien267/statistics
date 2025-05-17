@@ -1,17 +1,12 @@
 import React,{ useEffect,useState } from "react";
-
+import {Employee } from "../utils/timeUtils";
 interface SidebarProps {
-  onSelectEmployee: (id: string) => void;
+  onSelectEmployee: (emp: Employee) => void;
   selectedEmployeeId?: string;
   onSidebarChange: (y: boolean) => void;
 }
 
-interface Employee {
-  _id: string,
-  usercode:string,
-  username:string
-};
-const Sidebar = ({ onSelectEmployee,onSidebarChange, selectedEmployeeId }: SidebarProps) => {
+const Sidebar = ({ onSelectEmployee,onSidebarChange, selectedEmployeeId ,}: SidebarProps) => {
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [isOpen, setIsOpen] = useState(true);
   useEffect(() => {
@@ -26,7 +21,7 @@ const Sidebar = ({ onSelectEmployee,onSidebarChange, selectedEmployeeId }: Sideb
       {!isOpen && (
         <button
           onClick={() => {onSidebarChange(true) ;setIsOpen(true)}}
-          className="fixed top-4 left-2 z-50 bg-blue-500 text-white px-2 py-1 rounded shadow hover:bg-blue-600"
+          className="fixed top-4 left-4 z-50 bg-blue-500 text-white px-2 py-1 rounded shadow hover:bg-blue-600 cursor-pointer"
         >
           ☰
         </button>
@@ -37,7 +32,7 @@ const Sidebar = ({ onSelectEmployee,onSidebarChange, selectedEmployeeId }: Sideb
       {/* Nút toggle khi sidebar đang mở */}
       <button
         onClick={() =>  {onSidebarChange(false) ;setIsOpen(false)}}
-        className="absolute top-0 right-0 bg-blue-500 text-white px-2 py-1 rounded shadow hover:bg-blue-600"
+        className="absolute top-0 right-0 bg-blue-500 text-white px-2 py-1 rounded shadow hover:bg-blue-600 cursor-pointer"
       >
         ☰
       </button>
@@ -53,7 +48,7 @@ const Sidebar = ({ onSelectEmployee,onSidebarChange, selectedEmployeeId }: Sideb
                   ? "bg-blue-100 text-blue-700 font-semibold border-blue-500 underline"
                   : "hover:bg-blue-50 border-transparent"}
               `}
-              onClick={() => onSelectEmployee(emp._id)}
+              onClick={() => onSelectEmployee(emp)}
             >
               {emp.username}
             </li>

@@ -8,7 +8,11 @@ export interface AttendanceEntry {
   endTime: string;
   task:string
 }
-
+export interface Employee {
+  _id: string,
+  usercode:string,
+  username:string
+};
 export function getDaysInMonth(month: number, year: number): string[] {
   const days: string[] = [];
   const totalDays = new Date(year, month, 0).getDate(); // Lấy số ngày trong tháng
@@ -47,7 +51,6 @@ export function calculateWorkingStats(entries: AttendanceEntry[]) {
   let totalDays = 0;
   let totalWorkHours = 0;
   let totalOvertimeHours = 0;
-  console.log("entry length : " + entries.length)
   for (const e of entries) {
     if (!e.startTime || !e.endTime) continue;
     totalDays++;
