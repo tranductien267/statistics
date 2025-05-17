@@ -11,10 +11,11 @@ const AttendancePage = () => {
   const [selectedMonth, setSelectedMonth] = useState<number>(new Date().getMonth() + 1);
   const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear());
   const [attendanceData, setAttendanceData] = useState<AttendanceEntry[]>([]);
+  const [isShowSider, setIsShowSider] = useState<boolean>(true);
   return (
     <div className="flex h-screen">
       {/* Sidebar nhân viên */}
-      <Sidebar onSelectEmployee={setSelectedEmployee} selectedEmployeeId={selectedEmployee} />
+      <Sidebar onSelectEmployee={setSelectedEmployee} selectedEmployeeId={selectedEmployee} onSidebarChange={setIsShowSider} />
 
       {/* Phần phải */}
       <div className="flex-1 p-4 overflow-y-auto">
@@ -24,6 +25,7 @@ const AttendancePage = () => {
             year={selectedYear}
             onChangeMonth={setSelectedMonth}
             onChangeYear={setSelectedYear}
+            isShowSider={isShowSider}
           />
           <DownloadButton  
             attendanceData={attendanceData}

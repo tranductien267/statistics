@@ -45,20 +45,21 @@ const DownloadButton = ({ attendanceData,employeeId,month,year }: Props) => {
   const attendanceWS = XLSX.utils.aoa_to_sheet(attendanceSheetData);
   const summaryWS = XLSX.utils.aoa_to_sheet(summarySheetData);
   XLSX.utils.sheet_add_aoa(summaryWS, summarySheetData, { origin: "G2" });
+  const range = XLSX.utils.decode_range(attendanceWS['!ref']!); // vùng dữ liệu
   // Thêm border cho sheet tổng hợp (có 4 cột)
   const borderStyle = {
-    top: { style: "thin" },
-    bottom: { style: "thin" },
-    left: { style: "thin" },
-    right: { style: "thin" },
+    top: { style: 'thin', color: { rgb: '000000' } },
+    bottom: { style: 'thin', color: { rgb: '000000' } },
+    left: { style: 'thin', color: { rgb: '000000' } },
+    right: { style: 'thin', color: { rgb: '000000' } }
   };
-
-  for (let r = 1; r <= 31; r++) {
-    for (let c = 1; c <= 7; c++) {
-      const cellRef = XLSX.utils.encode_cell({ r, c });
-      if (!attendanceWS[cellRef]) continue;
-      if (!attendanceWS[cellRef].s) attendanceWS[cellRef].s = {};
-      attendanceWS[cellRef].s.border = borderStyle;
+  for (let r = range.s.r; r <= range.e.r; r++) {
+    for (let c = range.s.c; c <= range.e.c; c++) {
+      const cell_address = XLSX.utils.encode_cell({ r, c });
+      if (!attendanceWS[cell_address]) continue;
+      if (!attendanceWS[cell_address].s) attendanceWS[cell_address].s = {};
+      attendanceWS[cell_address].s.border = borderStyle;
+      attendanceWS[cell_address].s.alignment = { horizontal: "center", vertical: "center" };
     }
   }
 
@@ -66,9 +67,14 @@ const DownloadButton = ({ attendanceData,employeeId,month,year }: Props) => {
   XLSX.utils.book_append_sheet(wb, summaryWS, "Tong Hop");
 
   const fileName = `勤怠_${employeeId}_${month}_${year}.xlsx`;
-  const wbout = XLSX.write(wb, { bookType: "xlsx", type: "array" });
-  saveAs(new Blob([wbout], { type: "application/octet-stream" }), fileName);
-
+  const wbout = XLSX.write(wb, { bookType: "xlsx", type: "binary" });
+  function s2ab(s: string) {
+    const buf = new ArrayBuffer(s.length);
+    const view = new Uint8Array(buf);
+    for (let i = 0; i < s.length; ++i) view[i] = s.charCodeAt(i) & 0xff;
+    return buf;
+  }
+  saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), fileName);
   };
 
   return (
