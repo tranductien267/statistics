@@ -20,7 +20,7 @@ interface Props {
 const DownloadButton = ({ attendanceData, employeeId, month, year,employeeName }: Props) => {
   const handleDownload = async () => {
     const workbook = new ExcelJS.Workbook();
-    const sheet = workbook.addWorksheet('勤怠');
+    const sheet = workbook.addWorksheet(employeeName);
 
     // Bảng tổng hợp (summary) từ G2
     const stats = calculateWorkingStats(attendanceData);
