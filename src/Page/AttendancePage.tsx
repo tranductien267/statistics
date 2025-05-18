@@ -5,6 +5,7 @@ import MonthPicker from "../components/MonthPicker";
 import AttendanceSummary from "../components/AttendanceSummary";
 import AttendanceTable from "../components/AttendanceTable";
 import DownloadButton from "../components/DownloadButton";
+import UpdateButton from "../components/UpdateButton";
 import {AttendanceEntry,Employee } from "../utils/timeUtils";
 const AttendancePage = () => {
   const [selectedEmployee, setSelectedEmployee] = useState<Employee | undefined>(undefined);
@@ -12,6 +13,7 @@ const AttendancePage = () => {
   const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear());
   const [attendanceData, setAttendanceData] = useState<AttendanceEntry[]>([]);
   const [isShowSider, setIsShowSider] = useState<boolean>(true);
+  const [attendanceEditData, setAttendanceEditData] = useState<AttendanceEntry[]>([]);
   return (
     <div className="flex h-screen">
       {/* Sidebar nhân viên */}
@@ -27,13 +29,17 @@ const AttendancePage = () => {
             onChangeYear={setSelectedYear}
             isShowSider={isShowSider}
           />
-          <DownloadButton  
-            attendanceData={attendanceData}
-            employeeId={selectedEmployee?._id}
-            employeeName={selectedEmployee?.username}
-            month={selectedMonth}
-            year={selectedYear}
-          />
+          <div className="inline-flex justify-between w-[180px]">
+            <UpdateButton dataUpdate={attendanceEditData} />
+            <DownloadButton  
+              attendanceData={attendanceData}
+              employeeId={selectedEmployee?._id}
+              employeeName={selectedEmployee?.username}
+              month={selectedMonth}
+              year={selectedYear}
+            />
+          </div>
+
         </div>
 
         {selectedEmployee && (
@@ -42,6 +48,7 @@ const AttendancePage = () => {
               attendanceData={attendanceData}
             />
             <AttendanceTable
+              onChangeAttendanceData={setAttendanceEditData}
               employeeId={selectedEmployee._id}
               month={selectedMonth}
               year={selectedYear}
