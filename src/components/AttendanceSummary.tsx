@@ -21,7 +21,7 @@ const AttendanceSummary = ({ attendanceData }: Props) => {
         <div>🗓️ 出勤: {stats.totalDays}</div>
         <div>⏰ 時間内(8–17h): {stats.totalWorkHours}h</div>
         <div>💡 時間外: {stats.totalOvertimeHours}h</div>
-        <div>✅ 確認印: ______________________</div>
+        <div>✅ 確認印: </div>
       </div>
     </div>
   );
