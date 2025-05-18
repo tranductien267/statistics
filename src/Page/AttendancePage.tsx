@@ -21,7 +21,7 @@ const AttendancePage = () => {
 
       {/* Phần phải */}
       <div className="flex-1 p-4 overflow-y-auto">
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex flex-col sm:flex-row h-[80px] items-center justify-between mb-1">
           <MonthPicker
             month={selectedMonth}
             year={selectedYear}
