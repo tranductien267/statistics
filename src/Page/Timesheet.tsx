@@ -99,7 +99,7 @@ function Timesheet() {
     </div>
   
     <div className="mb-5">
-      <label className="block text-lg font-medium text-gray-700 mb-2">📍 現場名名</label>
+      <label className="block text-lg font-medium text-gray-700 mb-2">📍 現場名</label>
       <input
         type="text"
         value={location}
