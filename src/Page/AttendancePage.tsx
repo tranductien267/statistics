@@ -29,7 +29,7 @@ const AttendancePage = () => {
             onChangeYear={setSelectedYear}
             isShowSider={isShowSider}
           />
-          <div className="inline-flex justify-between w-[180px]">
+          <div className="inline-flex justify-between w-[220px]">
             <UpdateButton dataUpdate={attendanceEditData} />
             <DownloadButton  
               attendanceData={attendanceData}
